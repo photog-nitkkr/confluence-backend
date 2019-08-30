@@ -1,0 +1,5 @@
+#ignore these folder
+.idea/
+
+#ignore user related info in files
+confluence-backend-b4d806eef2a3.json
