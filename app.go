@@ -1,16 +1,19 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
-)
 
-func Hello(w http.ResponseWriter, r *http.Request) {
-	w.Write([]byte("Hello World"))
+	"github.com/gorilla/mux"
+)
+func main() {
+	r := mux.NewRouter()
+	r.HandleFunc("/", HeyHandler)
+	http.Handle("/", r)
+	http.ListenAndServe(":8080", nil)
 }
 
-func main() {
-	http.HandleFunc("/", Hello)
-	if err := http.ListenAndServe(":8080", nil); err != nil {
-		panic(err)
-	}
+func HeyHandler(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprintf(w, "It's working with mux")
 }
