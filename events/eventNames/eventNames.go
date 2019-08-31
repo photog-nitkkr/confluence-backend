@@ -1,4 +1,4 @@
-package events
+package eventNames
 
 import (
 	"fmt"
@@ -23,3 +23,4 @@ func Abc(w http.ResponseWriter, r *http.Request) {
 		log.Fatalln(err)
 	}
 }
+

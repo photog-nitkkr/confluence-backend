@@ -19,7 +19,7 @@ func main() {
 
 func muxRouterInitializer() *mux.Router {
 	muxRouter := mux.NewRouter()
-	muxRouter.PathPrefix("/activities").Handler(http.StripPrefix("/activities", events.Handler()))
+	muxRouter.PathPrefix("/events").Handler(http.StripPrefix("/events", events.EventHandler()))
 	muxRouter.HandleFunc("/", MuxHandler)
 	return muxRouter
 }
