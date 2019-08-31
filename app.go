@@ -8,12 +8,12 @@ import (
 )
 func main() {
 	muxRouter := mux.NewRouter()
-	muxRouter.HandleFunc("/", HeyHandler)
+	muxRouter.HandleFunc("/", MuxHandler)
 	http.Handle("/", muxRouter)
 	http.ListenAndServe(":8080", nil)
 }
 
-func HeyHandler(w http.ResponseWriter, r *http.Request) {
+func MuxHandler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprintf(w, "It's working with mux")
 }
