@@ -1,18 +1,17 @@
 package main
 
 import (
-	"context"
 	"fmt"
 	"log"
 	"net/http"
 
+	"./db"
 	"./events"
-	firestore "cloud.google.com/go/firestore"
 	"github.com/gorilla/mux"
 )
 
 func main() {
-	client := firestoreInitialization()
+	client := db.GetFirestore()
 	fmt.Println(client)
 
 	startListening()
@@ -33,18 +32,6 @@ func startListening() {
 		listeningError := "Error in Listening: "
 		log.Fatalln(listeningError, err)
 	}
-}
-
-func firestoreInitialization() *firestore.Client {
-	ctx := context.Background()
-	projectId := "confluence-backend"
-	firebaseError := "Failed to create firebase client with err: "
-
-	client, err := firestore.NewClient(ctx, projectId)
-	if err != nil {
-		log.Fatalln(firebaseError, err)
-	}
-	return client
 }
 
 func MuxHandler(w http.ResponseWriter, r *http.Request) {
