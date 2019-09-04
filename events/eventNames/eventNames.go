@@ -1,6 +1,7 @@
 package eventNames
 
 import (
+	"../../common"
 	"../../protocol"
 	"encoding/json"
 	"fmt"
@@ -40,9 +41,7 @@ func getAllEventNames(w http.ResponseWriter, r *http.Request) {
 			err.Error(),
 		)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(jsonObject))
+		common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
 		return
 	} else {
 		jsonObj, errInJson := json.Marshal(eventNames)
@@ -54,9 +53,7 @@ func getAllEventNames(w http.ResponseWriter, r *http.Request) {
 				"",
 			)
 
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(jsonObject))
+			common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
 			return
 		}
 
@@ -66,9 +63,7 @@ func getAllEventNames(w http.ResponseWriter, r *http.Request) {
 			string(jsonObj),
 		)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(jsonObject))
+		common.WriteResponse(w, jsonObject, http.StatusOK)
 		return
 	}
 	return
@@ -87,9 +82,7 @@ func getEventNameByCategory(w http.ResponseWriter, r *http.Request) {
 			err.Error(),
 		)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusInternalServerError)
-		w.Write([]byte(jsonObject))
+		common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
 		return
 	} else {
 		jsonObj, errInJson := json.Marshal(array)
@@ -101,9 +94,7 @@ func getEventNameByCategory(w http.ResponseWriter, r *http.Request) {
 				"",
 			)
 
-			w.Header().Set("Content-Type", "application/json")
-			w.WriteHeader(http.StatusInternalServerError)
-			w.Write([]byte(jsonObject))
+			common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
 			return
 		}
 
@@ -113,9 +104,7 @@ func getEventNameByCategory(w http.ResponseWriter, r *http.Request) {
 				string(jsonObj),
 		)
 
-		w.Header().Set("Content-Type", "application/json")
-		w.WriteHeader(http.StatusOK)
-		w.Write([]byte(jsonObject))
+		common.WriteResponse(w, jsonObject, http.StatusOK)
 		return
 	}
 	return
