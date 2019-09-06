@@ -1,4 +1,4 @@
-package common
+package structs
 
 type Category struct {
 	Name string `json:"name"`
