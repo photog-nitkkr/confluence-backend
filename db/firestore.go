@@ -4,6 +4,7 @@ import (
 	firestore "cloud.google.com/go/firestore"
 	"context"
 	"log"
+	"os"
 	"sync"
 )
 
@@ -30,6 +31,7 @@ func firestoreInitialization() *firestore.Client {
 	client, err := firestore.NewClient(ctx, projectId)
 	if err != nil {
 		log.Fatalln(firebaseError, err)
+		os.Exit(1)
 	}
 	return client
 }
