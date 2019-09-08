@@ -41,7 +41,7 @@ func getAllEventNames(w http.ResponseWriter, r *http.Request) {
 			err.Error(),
 		)
 
-		common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
+		common.WriteResponseOld(w, jsonObject, http.StatusInternalServerError)
 		return
 	} else {
 		jsonObj, errInJson := json.Marshal(eventNames)
@@ -53,17 +53,17 @@ func getAllEventNames(w http.ResponseWriter, r *http.Request) {
 				"",
 			)
 
-			common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
+			common.WriteResponseOld(w, jsonObject, http.StatusInternalServerError)
 			return
 		}
 
 		jsonObject := protocol.GiveResponseJsonUsingArguments(true,
-			"Events Names by All category: ",
+			"Events Names by All categoryRoutes: ",
 			protocol.GiveRequestInJson(r),
 			string(jsonObj),
 		)
 
-		common.WriteResponse(w, jsonObject, http.StatusOK)
+		common.WriteResponseOld(w, jsonObject, http.StatusOK)
 		return
 	}
 	return
@@ -82,7 +82,7 @@ func getEventNameByCategory(w http.ResponseWriter, r *http.Request) {
 			err.Error(),
 		)
 
-		common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
+		common.WriteResponseOld(w, jsonObject, http.StatusInternalServerError)
 		return
 	} else {
 		jsonObj, errInJson := json.Marshal(array)
@@ -94,7 +94,7 @@ func getEventNameByCategory(w http.ResponseWriter, r *http.Request) {
 				"",
 			)
 
-			common.WriteResponse(w, jsonObject, http.StatusInternalServerError)
+			common.WriteResponseOld(w, jsonObject, http.StatusInternalServerError)
 			return
 		}
 
@@ -104,7 +104,7 @@ func getEventNameByCategory(w http.ResponseWriter, r *http.Request) {
 				string(jsonObj),
 		)
 
-		common.WriteResponse(w, jsonObject, http.StatusOK)
+		common.WriteResponseOld(w, jsonObject, http.StatusOK)
 		return
 	}
 	return

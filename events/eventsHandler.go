@@ -1,10 +1,10 @@
 package events
 
 import (
-	"github.com/gorilla/mux"
 	"./categories"
-	"net/http"
 	"./eventNames"
+	"github.com/gorilla/mux"
+	"net/http"
 )
 
 func EventHandler() *mux.Router {
