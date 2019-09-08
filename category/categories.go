@@ -1,9 +1,8 @@
 package category
 
 import (
+	. "../db"
 	"errors"
-
-	"../db"
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
 )
@@ -11,7 +10,7 @@ import (
 func GetAllCategory() (*[]Category, error) {
 	var categories []Category
 
-	fireStoreClient := db.GetFirestore()
+	fireStoreClient := GetFirestore()
 
 	categoriesIterator := fireStoreClient.Collection("categories").Documents(context.Background())
 
