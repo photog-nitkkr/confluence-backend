@@ -13,5 +13,5 @@ func CategoryHandler() *mux.Router {
 }
 
 func addRoutes(muxRouter *mux.Router) {
-	muxRouter.HandleFunc("/", getCategory).Methods("GET")
+	muxRouter.HandleFunc("/", readCategory).Methods("GET")
 }

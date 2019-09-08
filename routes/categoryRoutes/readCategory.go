@@ -1,35 +1,35 @@
 package categoryRoutes
 
 import (
-	"fmt"
-	"net/http"
 	"../../category"
 	"../../protocol"
-	"../../common"
+	"fmt"
+	"net/http"
 )
 
-func getCategory(w http.ResponseWriter, r *http.Request) {
+func readCategory(w http.ResponseWriter, r *http.Request) {
 	category := r.URL.Query()["category"]
-
+	protocol.GetQueryParams(r)
 	if category == nil {
-		returnAllCategory(w)
+		returnAllCategory(w, r)
 	} else {
 		fmt.Println(r.URL.Query()["category"][0])
 	}
 }
 
-func returnAllCategory(w http.ResponseWriter) {
+func returnAllCategory(w http.ResponseWriter, r *http.Request) {
 	categories, err := category.GetAllCategory()
 
 	if err != nil {
 		return
 	}
 
-	responseObject := protocol.ResponseProtocol{
+	responseObject := protocol.Response{
 		Success: true,
 		Message: "Giving All Categories",
+		Request: protocol.GetRequestObject(r),
 		Data:    *categories,
 	}
 
-	common.WriteResponseObject(w, responseObject, http.StatusOK)
+	protocol.WriteResponseObject(w, responseObject, http.StatusOK, r)
 }
