@@ -1,13 +1,14 @@
 package category
 
 import (
-	"../db"
 	"errors"
+
+	"../db"
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
 )
 
-func GetAllCategory() (*[]Category , error) {
+func GetAllCategory() (*[]Category, error) {
 	var categories []Category
 
 	fireStoreClient := db.GetFirestore()
@@ -41,4 +42,18 @@ func GetAllCategory() (*[]Category , error) {
 	return &categories, nil
 }
 
+func GetCategories(categoryArray []string) (*[]Category, error) {
+	var categories []Category
 
+	for _, categoryName := range categoryArray {
+		category, err := GetCategory(categoryName)
+
+		if err != nil {
+			return nil, err
+		}
+
+		categories = append(categories, *category)
+	}
+
+	return &categories, nil
+}
