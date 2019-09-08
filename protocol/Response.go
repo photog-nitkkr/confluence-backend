@@ -12,7 +12,7 @@ type Response struct {
 	Data interface{} `json:"data"`
 }
 
-func WriteResponseObject(w http.ResponseWriter, responseObject Response, statusCode int, r *http.Request) {
+func WriteResponseObject(w http.ResponseWriter, r *http.Request, responseObject Response, statusCode int) {
 	jsonResponse, err := json.Marshal(responseObject)
 
 	if err != nil {
