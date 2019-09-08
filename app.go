@@ -7,6 +7,7 @@ import (
 
 	"./db"
 	"./events"
+	"./routes/categoryRoutes"
 	"github.com/gorilla/mux"
 )
 
@@ -20,6 +21,7 @@ func main() {
 func muxRouterInitializer() *mux.Router {
 	muxRouter := mux.NewRouter()
 	muxRouter.PathPrefix("/events").Handler(http.StripPrefix("/events", events.EventHandler()))
+	muxRouter.PathPrefix("/category").Handler(http.StripPrefix("/category", categoryRoutes.CategoryHandler()))
 	muxRouter.HandleFunc("/", MuxHandler)
 	return muxRouter
 }

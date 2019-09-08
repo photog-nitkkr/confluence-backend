@@ -1,5 +1,5 @@
 package structs
 
 type Person struct {
-	Name string `json:"category"`
+	Name string `json:"name"`
 }
