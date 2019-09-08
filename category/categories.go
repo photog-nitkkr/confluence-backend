@@ -1,15 +1,14 @@
 package category
 
 import (
-	"../../common/structs"
-	"../../db"
+	"../db"
 	"errors"
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
 )
 
-func GetAllCategory() (*[]structs.Category , error) {
-	var categories []structs.Category
+func GetAllCategory() (*[]Category , error) {
+	var categories []Category
 
 	fireStoreClient := db.GetFirestore()
 
@@ -30,7 +29,7 @@ func GetAllCategory() (*[]structs.Category , error) {
 			return nil, err
 		}
 
-		var category structs.Category
+		var category Category
 		errInConversion := convertToCategoryObject(doc, &category)
 
 		if errInConversion != nil {

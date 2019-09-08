@@ -1,14 +1,13 @@
 package category
 
 import (
-	"../../common/structs"
-	"../../db"
+	"../db"
 	"cloud.google.com/go/firestore"
 	"context"
 	"errors"
 )
 
-func GetCategory(categoryName string) (*structs.Category , error) {
+func GetCategory(categoryName string) (*Category , error) {
 	firestoreClient := db.GetFirestore()
 
 	doc, err := firestoreClient.Collection("categories").Doc(categoryName).Get(context.Background())
@@ -21,7 +20,7 @@ func GetCategory(categoryName string) (*structs.Category , error) {
 		return nil, errors.New("Internal Server Error / No Category")
 	}
 
-	var category structs.Category
+	var category Category
 
 	errInCustomObject := convertToCategoryObject(doc, &category)
 
@@ -32,7 +31,7 @@ func GetCategory(categoryName string) (*structs.Category , error) {
 	return &category, nil
 }
 
-func convertToCategoryObject(firestoreDocument *firestore.DocumentSnapshot, category *structs.Category) error {
+func convertToCategoryObject(firestoreDocument *firestore.DocumentSnapshot, category *Category) error {
 	err := firestoreDocument.DataTo(category)
 
 	if err != nil {
