@@ -13,5 +13,5 @@ func EventHandler() *mux.Router {
 }
 
 func addRoutes(muxRouter *mux.Router) {
-	muxRouter.HandleFunc("/", readCategory).Methods("GET")
+	muxRouter.HandleFunc("/", readEventName).Methods("GET")
 }

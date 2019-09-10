@@ -1,8 +1,8 @@
 package category
 
 import (
+	. "../common/structs"
 	"../db"
-	"cloud.google.com/go/firestore"
 	"context"
 	"errors"
 )
@@ -22,20 +22,11 @@ func GetCategory(categoryName string) (*Category , error) {
 
 	var category Category
 
-	errInCustomObject := convertToCategoryObject(doc, &category)
+	errInCustomObject := ConvertToCategoryObject(doc, &category)
 
 	if errInCustomObject != nil {
 		return nil, errInCustomObject
 	}
 
 	return &category, nil
-}
-
-func convertToCategoryObject(firestoreDocument *firestore.DocumentSnapshot, category *Category) error {
-	err := firestoreDocument.DataTo(category)
-
-	if err != nil {
-		return err
-	}
-	return nil
 }

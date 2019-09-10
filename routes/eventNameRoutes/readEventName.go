@@ -1,24 +1,77 @@
 package eventNameRoutes
 
-import (
+import(
 	"../../event"
 	"../../protocol"
+	"fmt"
 	. "net/http"
 )
 
-func readCategory(w ResponseWriter, r *Request) {
+func readEventName(w ResponseWriter, r *Request) {
 	category := r.URL.Query()["category"]
 	event := r.URL.Query()["event"]
+	fmt.Println(category, event)
 	if len(r.URL.Query()) == 0 {
+		returnAllEvents(w, r)
 		return
-	} else if category != nil && event == nil {
+	} else if category != nil && len(event) == 0 {
+		returnCategoryEvents(w, r, category)
 		return
-	} else if category != nil && event != nil && len(category) == 1 {
+	} else if category != nil && len(category) == 1 {
 		returnEvent(w, r, category[0], event)
+		return
 	} else {
 		returnInvalidParamsError(w, r)
 		return
 	}
+}
+
+func returnAllEvents(w ResponseWriter, r *Request) {
+	category, err := event.GetAllEventsForAllCategory()
+
+	if err != nil {
+		responseObject := protocol.Response{
+			Success: false,
+			Message: err.Error(),
+			Request: protocol.GetRequestObject(r),
+			Data:    nil,
+		}
+		protocol.WriteResponseObject(w, r, responseObject, StatusInternalServerError)
+		return
+	}
+
+	responseObject := protocol.Response{
+		Success: true,
+		Message: "Giving events for all categories",
+		Request: protocol.GetRequestObject(r),
+		Data:    category,
+	}
+	protocol.WriteResponseObject(w, r, responseObject, StatusOK)
+	return
+}
+
+func returnCategoryEvents(w ResponseWriter, r *Request, categoryName []string) {
+	categories, err := event.GetEventsForCategories(categoryName)
+
+	if err != nil {
+		responseObject := protocol.Response{
+			Success: false,
+			Message: err.Error(),
+			Request: protocol.GetRequestObject(r),
+			Data:    nil,
+		}
+		protocol.WriteResponseObject(w, r, responseObject, StatusInternalServerError)
+		return
+	}
+
+	responseObject := protocol.Response{
+		Success: true,
+		Message: "Giving events for given categories",
+		Request: protocol.GetRequestObject(r),
+		Data:    categories,
+	}
+	protocol.WriteResponseObject(w, r, responseObject, StatusOK)
+	return
 }
 
 func returnEvent(w ResponseWriter, r *Request, categoryName string, eventsName []string) {

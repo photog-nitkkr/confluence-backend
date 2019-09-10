@@ -1,6 +1,7 @@
 package event
 
 import (
+	. "../common/structs"
 	"../db"
 	"cloud.google.com/go/firestore"
 	"context"

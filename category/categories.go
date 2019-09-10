@@ -5,6 +5,7 @@ import (
 	"errors"
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
+	. "../common/structs"
 )
 
 func GetAllCategory() (*[]Category, error) {
@@ -30,7 +31,7 @@ func GetAllCategory() (*[]Category, error) {
 		}
 
 		var category Category
-		errInConversion := convertToCategoryObject(doc, &category)
+		errInConversion := ConvertToCategoryObject(doc, &category)
 
 		if errInConversion != nil {
 			return nil, errInConversion
