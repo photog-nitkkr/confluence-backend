@@ -1,12 +1,12 @@
 package category
 
 import (
-	"../common/structs"
+	"../event"
 )
 
 type Category struct {
 	Name string `json:"name"`
 	DisplayName string `json:"displayName"`
-	Events []structs.Event `json:"events"`
+	Events []event.Event `json:"events"`
 }
 
