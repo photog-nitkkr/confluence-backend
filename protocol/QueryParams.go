@@ -7,7 +7,7 @@ type Params struct {
 	Value []string
 }
 
-func GetQueryParams(r *http.Request) []Params {
+func GetQueryParamsForGETRequest(r *http.Request) []Params {
 	queryMap := r.URL.Query()
 	var params []Params
 	for key, val := range queryMap {

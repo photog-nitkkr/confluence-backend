@@ -11,7 +11,12 @@ type Request struct {
 func GetRequestObject(r *http.Request) Request {
 	method := r.Method
 	uri := r.RequestURI
-	params := GetQueryParams(r)
+	var params []Params
+	if method == "GET" {
+		params = GetQueryParamsForGETRequest(r)
+	} else {
+		params = nil
+	}
 
 	return convertToRequest(method, uri, params)
 }
