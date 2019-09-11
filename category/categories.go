@@ -1,11 +1,12 @@
 package category
 
 import (
-	. "../db"
 	"errors"
+
+	. "../common/structs"
+	. "../db"
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
-	. "../common/structs"
 )
 
 func GetAllCategory() (*[]Category, error) {
@@ -38,8 +39,6 @@ func GetAllCategory() (*[]Category, error) {
 		}
 		categories = append(categories, category)
 	}
-
-	return &categories, nil
 }
 
 func GetCategories(categoryArray []string) (*[]Category, error) {
