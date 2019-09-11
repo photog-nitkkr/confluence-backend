@@ -8,10 +8,10 @@ import (
 	"errors"
 )
 
-func GetEventName(categoryName string, eventName string) (*Event, error) {
+func GetEvent(categoryName string, eventName string, docName string) (*Event, error) {
 	firestoreClient := db.GetFirestore()
 
-	doc, err := firestoreClient.Collection("events").Doc("eventsName").Collection(categoryName).Doc(eventName).Get(context.Background())
+	doc, err := firestoreClient.Collection("events").Doc(docName).Collection(categoryName).Doc(eventName).Get(context.Background())
 
 	if err != nil {
 		return nil, err

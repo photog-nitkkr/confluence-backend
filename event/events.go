@@ -5,15 +5,13 @@ import (
 	. "../common/structs"
 	. "../db"
 	"context"
-	"fmt"
 	"google.golang.org/api/iterator"
 )
 
-func GetEventsForCategories(categoryNames []string) (*[]Category, error) {
+func GetEventsForCategories(categoryNames []string, docName string) (*[]Category, error) {
 	var categories []Category
 	for _, categoryName := range categoryNames {
-		category, err := GetEventsForCategory(categoryName)
-		fmt.Println(categoryName)
+		category, err := GetEventsForCategory(categoryName, docName)
 
 		if err != nil {
 			return nil, err
@@ -23,8 +21,8 @@ func GetEventsForCategories(categoryNames []string) (*[]Category, error) {
 	return &categories, nil
 }
 
-func GetEventsForCategory(categoryName string) (*Category, error) {
-	events, err := GetAllEventsForCategory(categoryName)
+func GetEventsForCategory(categoryName string, docName string) (*Category, error) {
+	events, err := GetAllEventsForCategory(categoryName, docName)
 
 	if err != nil {
 		return nil, err
@@ -39,11 +37,10 @@ func GetEventsForCategory(categoryName string) (*Category, error) {
 	return category, nil
 }
 
-func GetAllEventsForCategory(categoryName string) (*[]Event, error) {
+func GetAllEventsForCategory(categoryName string, docName string) (*[]Event, error) {
 	firestoreClient := GetFirestore()
-	fmt.Println(categoryName)
-	eventIterator := firestoreClient.Collection("events").Doc("eventsName").Collection(categoryName).Documents(context.Background())
 
+	eventIterator := firestoreClient.Collection("events").Doc(docName).Collection(categoryName).Documents(context.Background())
 	if eventIterator == nil {
 		return nil, nil
 	}
@@ -73,11 +70,11 @@ func GetAllEventsForCategory(categoryName string) (*[]Event, error) {
 	return &events, nil
 }
 
-func GetEventsName(categoryName string, eventNames []string) (*[]Event, error) {
+func GetEvents(categoryName string, eventNames []string, docName string) (*[]Event, error) {
 	var events []Event
 
 	for _, eventName := range eventNames {
-		event, err := GetEventName(categoryName, eventName)
+		event, err := GetEvent(categoryName, eventName, docName)
 
 		if err != nil {
 			return nil, err
@@ -88,7 +85,7 @@ func GetEventsName(categoryName string, eventNames []string) (*[]Event, error) {
 	return &events, nil
 }
 
-func GetAllEventsForAllCategory() (*[]Category, error) {
+func GetAllEventsForAllCategory(docName string) (*[]Category, error) {
 	allCategory, err := category.GetAllCategory()
 
 	if err != nil {
@@ -97,7 +94,7 @@ func GetAllEventsForAllCategory() (*[]Category, error) {
 
 	var categories []Category
 	for _, value := range *allCategory {
-		category, err := GetEventsForCategory(value.Name)
+		category, err := GetEventsForCategory(value.Name, docName)
 		if err != nil {
 			return nil, err
 		}

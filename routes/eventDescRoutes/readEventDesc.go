@@ -1,4 +1,4 @@
-package eventNameRoutes
+package eventDescRoutes
 
 import (
 	"../../event"
@@ -6,7 +6,7 @@ import (
 	. "net/http"
 )
 
-func readEventName(w ResponseWriter, r *Request) {
+func readEventDesc(w ResponseWriter, r *Request) {
 	category := r.URL.Query()["category"]
 	event := r.URL.Query()["event"]
 
@@ -26,7 +26,7 @@ func readEventName(w ResponseWriter, r *Request) {
 }
 
 func returnAllEvents(w ResponseWriter, r *Request) {
-	category, err := event.GetAllEventsForAllCategory("eventsName")
+	category, err := event.GetAllEventsForAllCategory("eventDesc")
 
 	if err != nil {
 		responseObject := protocol.Response{
@@ -50,7 +50,7 @@ func returnAllEvents(w ResponseWriter, r *Request) {
 }
 
 func returnCategoryEvents(w ResponseWriter, r *Request, categoryName []string) {
-	categories, err := event.GetEventsForCategories(categoryName, "eventsName")
+	categories, err := event.GetEventsForCategories(categoryName, "eventDesc")
 
 	if err != nil {
 		responseObject := protocol.Response{
@@ -74,7 +74,7 @@ func returnCategoryEvents(w ResponseWriter, r *Request, categoryName []string) {
 }
 
 func returnEvent(w ResponseWriter, r *Request, categoryName string, eventsName []string) {
-	events, err := event.GetEvents(categoryName, eventsName, "eventsName")
+	events, err := event.GetEvents(categoryName, eventsName, "eventDesc")
 
 	if err != nil {
 		responseObject := protocol.Response{
