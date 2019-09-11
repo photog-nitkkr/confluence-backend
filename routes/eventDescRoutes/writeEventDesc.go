@@ -6,7 +6,6 @@ import (
 	"../../protocol"
 	"context"
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -40,7 +39,7 @@ func addEvent(r *http.Request) error {
 	if err != nil {
 		return err
 	}
-	
+
 	errInAdding := addEventInFireStore(event)
 	if err != nil {
 		return errInAdding
