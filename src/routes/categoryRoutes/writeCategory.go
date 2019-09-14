@@ -5,9 +5,9 @@ import (
 	"errors"
 	"net/http"
 
-	"../../category"
-	"../../common/structs"
-	"../../protocol"
+	"category"
+	"common/structs"
+	"protocol"
 )
 
 func writeCategory(w http.ResponseWriter, r *http.Request) {

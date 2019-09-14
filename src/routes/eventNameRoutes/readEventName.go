@@ -1,8 +1,8 @@
 package eventNameRoutes
 
 import (
-	"../../event"
-	"../../protocol"
+	"event"
+	"protocol"
 	. "net/http"
 )
 

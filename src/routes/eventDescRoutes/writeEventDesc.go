@@ -5,9 +5,9 @@ import (
 	"errors"
 	"net/http"
 
-	"../../common/structs"
-	"../../event"
-	"../../protocol"
+	"common/structs"
+	"event"
+	"protocol"
 )
 
 func writeEvent(w http.ResponseWriter, r *http.Request) {

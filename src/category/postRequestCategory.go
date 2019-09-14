@@ -3,8 +3,8 @@ package category
 import (
 	"context"
 
-	"../common/structs"
-	. "../db"
+	"common/structs"
+	. "db"
 )
 
 func AddCategoryInFireStore(category structs.Category) error {

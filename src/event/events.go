@@ -1,9 +1,9 @@
 package event
 
 import (
-	"../category"
-	. "../common/structs"
-	. "../db"
+	"category"
+	. "common/structs"
+	. "db"
 	"context"
 	"google.golang.org/api/iterator"
 )

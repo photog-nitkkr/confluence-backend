@@ -1,8 +1,8 @@
 package eventDescRoutes
 
 import (
-	"../../event"
-	"../../protocol"
+	"event"
+	"protocol"
 	. "net/http"
 )
 

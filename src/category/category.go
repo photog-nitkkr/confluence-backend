@@ -1,8 +1,8 @@
 package category
 
 import (
-	. "../common/structs"
-	"../db"
+	. "common/structs"
+	"db"
 	"context"
 	"errors"
 )

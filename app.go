@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"log"
 	"net/http"
-	"./src/db"
-	"./src/routes/categoryRoutes"
-	"./src/routes/eventDescRoutes"
-	"./src/routes/eventNameRoutes"
+	"db"
+	"routes/categoryRoutes"
+	"routes/eventDescRoutes"
+	"routes/eventNameRoutes"
 	"github.com/gorilla/mux"
 )
 

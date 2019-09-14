@@ -3,8 +3,8 @@ package category
 import (
 	"errors"
 
-	. "../common/structs"
-	. "../db"
+	. "common/structs"
+	. "db"
 	"golang.org/x/net/context"
 	"google.golang.org/api/iterator"
 )

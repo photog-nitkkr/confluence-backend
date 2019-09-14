@@ -1,8 +1,8 @@
 package categoryRoutes
 
 import (
-	"../../category"
-	"../../protocol"
+	"category"
+	"protocol"
 	. "net/http"
 )
 
