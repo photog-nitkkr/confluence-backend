@@ -1,6 +1,13 @@
 #ignore these folder
 .idea/
 
+#ignore go packages
+src/cloud.google.com
+src/github.com
+src/go.opencensus.io
+src/golang.org
+src/google.golang.org
+
 #ignore user related info in files
 confluence-backend-f4428e8989c7.json
 confluence-backend-bb2e5f99bc4d.json
