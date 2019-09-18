@@ -3,8 +3,9 @@ package event
 import (
 	"category"
 	. "common/structs"
-	. "db"
 	"context"
+	. "db"
+
 	"google.golang.org/api/iterator"
 )
 
@@ -67,7 +68,7 @@ func GetAllEventsForCategory(categoryName string, docName string) (*[]Event, err
 		events = append(events, event)
 	}
 
-	return &events, nil
+	return &events, nil //Unreachable Code
 }
 
 func GetEvents(categoryName string, eventNames []string, docName string) (*[]Event, error) {
