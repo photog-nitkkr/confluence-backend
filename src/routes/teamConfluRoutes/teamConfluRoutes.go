@@ -13,6 +13,7 @@ func TeamConfluHandler() *mux.Router {
 }
 
 func addRoutes(muxRouter *mux.Router) {
+	muxRouter.HandleFunc("/roles/", getTeamConfluRoles).Methods("GET")
 	muxRouter.HandleFunc("/", writeTeamConflu).Methods("POST")
 	muxRouter.HandleFunc("/", readTeamConflu).Methods("GET")
 }

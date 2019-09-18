@@ -13,6 +13,7 @@ func DeveloperHandler() *mux.Router {
 }
 
 func addRoutes(muxRouter *mux.Router) {
+	muxRouter.HandleFunc("/roles/", getDeveloperRoles).Methods("GET")
 	muxRouter.HandleFunc("/", writeDeveloper).Methods("POST")
 	muxRouter.HandleFunc("/", readDeveloper).Methods("GET")
 }

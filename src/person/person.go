@@ -89,3 +89,20 @@ func GetAllSubTeams(team string) (*[]Team, error) {
 		teams = append(teams, *team)
 	}
 }
+
+func GetNamesOfSubTeams(team string) (*[]string, error) {
+	firestoreClient := db.GetFirestore()
+
+	collectionIterator := firestoreClient.Collection("contacts").Doc(team).Collections(context.Background())
+	var subTeams []string
+	for {
+		collRef, err := collectionIterator.Next()
+		if err == iterator.Done {
+			return &subTeams, nil
+		}
+		if err != nil {
+			return nil, err
+		}
+		subTeams = append(subTeams, collRef.ID)
+	}
+}
