@@ -3,10 +3,11 @@ package main
 import (
 	"db"
 	"fmt"
-	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"routes"
+
+	"github.com/gorilla/mux"
 )
 
 func main() {
