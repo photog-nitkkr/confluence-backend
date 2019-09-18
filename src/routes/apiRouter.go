@@ -6,6 +6,7 @@ import (
 	"routes/developerRoutes"
 	"routes/eventDescRoutes"
 	"routes/eventNameRoutes"
+	"routes/teamConfluRoutes"
 
 	"github.com/gorilla/mux"
 )
@@ -16,5 +17,6 @@ func ApiMuxRouterInitializer() *mux.Router {
 	muxRouter.PathPrefix("/events/desc").Handler(http.StripPrefix("/events/desc", eventDescRoutes.EventHandler()))
 	muxRouter.PathPrefix("/category").Handler(http.StripPrefix("/category", categoryRoutes.CategoryHandler()))
 	muxRouter.PathPrefix("/developers").Handler(http.StripPrefix("/developers", developerRoutes.DeveloperHandler()))
+	muxRouter.PathPrefix("/teamConflu").Handler(http.StripPrefix("/teamConflu", teamConfluRoutes.TeamConfluHandler()))
 	return muxRouter
 }

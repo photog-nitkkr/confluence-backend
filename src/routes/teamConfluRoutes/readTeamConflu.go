@@ -2,9 +2,8 @@ package teamConfluRoutes
 
 import (
 	. "net/http"
+	. "person"
 	"protocol"
-
-	. "developer"
 )
 
 func readTeamConflu(w ResponseWriter, r *Request) {
@@ -32,7 +31,7 @@ func returnInvalidParamsError(w ResponseWriter, r *Request) {
 }
 
 func returnTeamConflu(w ResponseWriter, r *Request) {
-	teamMembers, err := GetAllTeam("teamConflu")
+	teamMembers, err := GetAllSubTeams("teamConflu")
 
 	if err != nil {
 		responseObject := protocol.Response{
@@ -56,12 +55,12 @@ func returnTeamConflu(w ResponseWriter, r *Request) {
 }
 
 func returnTeamConfluForRole(w ResponseWriter, r *Request, role []string) {
-	teamMembers, err := event.GetMembersForARole(role, "teamConflu")
+	teams, err := GetSubTeams("teamConflu", role)
 
 	if err != nil {
 		responseObject := protocol.Response{
 			Success: false,
-			Message: err.Error(),
+			Message: "Error in Getting Team Conflu",
 			Request: protocol.GetRequestObject(r),
 			Data:    nil,
 		}
@@ -71,9 +70,9 @@ func returnTeamConfluForRole(w ResponseWriter, r *Request, role []string) {
 
 	responseObject := protocol.Response{
 		Success: true,
-		Message: "Giving members for given roles",
+		Message: "Giving All Members of Team Conflu for given roles",
 		Request: protocol.GetRequestObject(r),
-		Data:    categories,
+		Data:    *teams,
 	}
 	protocol.WriteResponseObject(w, r, responseObject, StatusOK)
 	return
