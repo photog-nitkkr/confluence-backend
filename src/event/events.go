@@ -55,14 +55,14 @@ func GetAllEventsForCategory(categoryName string, docName string) (*[]Event, err
 		}
 
 		if err != nil {
-			return nil, nil
+			return nil, err
 		}
 
 		var event Event
 		errInConversion := convertToEventObject(doc, &event)
 
 		if errInConversion != nil {
-			return nil, nil
+			return nil, errInConversion
 		}
 		events = append(events, event)
 	}
