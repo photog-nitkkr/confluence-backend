@@ -8,16 +8,7 @@ import (
 	. "person"
 )
 
-func writeTeamConflu(w http.ResponseWriter, r *http.Request) {
-	roleParam := r.URL.Query()["role"]
-	var role string
-	if len(roleParam) == 1 {
-		role = roleParam[0]
-	} else {
-		returnInvalidParamsError(w, r)
-		return
-	}
-
+func sendJSONAfterWrite(w http.ResponseWriter, r *http.Request, role string) {
 	err := AddPerson(r, "teamConflu", role)
 
 	if err != nil {
@@ -38,5 +29,18 @@ func writeTeamConflu(w http.ResponseWriter, r *http.Request) {
 		Data:    nil,
 	}
 	protocol.WriteResponseObject(w, r, responseObject, http.StatusOK)
+	return
+}
+
+func writeTeamConflu(w http.ResponseWriter, r *http.Request) {
+	roleParam := r.URL.Query()["role"]
+	var role string
+	if len(roleParam) == 1 {
+		role = roleParam[0]
+	} else {
+		returnInvalidParamsError(w, r)
+		return
+	}
+	sendJSONAfterWrite(w, r, role)
 	return
 }
