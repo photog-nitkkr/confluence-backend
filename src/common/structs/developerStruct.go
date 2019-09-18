@@ -6,6 +6,7 @@ import (
 
 type Developer struct {
 	Name     string `json:"name"`
+	ProfilePic string `json:"profilePic"`
 	FbID     string `json:"fbID"`
 	GithubID string `json:"githubID"`
 	Email    string `json:"email"`
