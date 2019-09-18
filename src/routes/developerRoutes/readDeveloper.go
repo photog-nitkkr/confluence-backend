@@ -29,7 +29,7 @@ func returnInvalidParamsError(w ResponseWriter, r *Request) {
 }
 
 func returnAllDevelopers(w ResponseWriter, r *Request) {
-	categories, err := GetAllDevelopers()
+	developers, err := GetAllDevelopers()
 
 	if err != nil {
 		responseObject := protocol.Response{
@@ -46,7 +46,7 @@ func returnAllDevelopers(w ResponseWriter, r *Request) {
 		Success: true,
 		Message: "Giving All Developers",
 		Request: protocol.GetRequestObject(r),
-		Data:    *categories,
+		Data:    *developers,
 	}
 	protocol.WriteResponseObject(w, r, responseObject, StatusOK)
 	return
