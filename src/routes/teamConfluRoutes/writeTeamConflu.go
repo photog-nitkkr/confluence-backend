@@ -1,14 +1,15 @@
-package developerRoutes
+package teamConfluRoutes
 
 import (
 	"net/http"
 
-	. "person"
 	"protocol"
+
+	. "person"
 )
 
 func sendJSONAfterWrite(w http.ResponseWriter, r *http.Request, role string) {
-	err := AddPerson(r, "developers", role)
+	err := AddPerson(r, "teamConflu", role)
 
 	if err != nil {
 		responseObject := protocol.Response{
@@ -23,7 +24,7 @@ func sendJSONAfterWrite(w http.ResponseWriter, r *http.Request, role string) {
 
 	responseObject := protocol.Response{
 		Success: true,
-		Message: "Added developer successfully",
+		Message: "Added team Conflu member successfully",
 		Request: protocol.GetRequestObject(r),
 		Data:    nil,
 	}
@@ -31,12 +32,10 @@ func sendJSONAfterWrite(w http.ResponseWriter, r *http.Request, role string) {
 	return
 }
 
-func writeDeveloper(w http.ResponseWriter, r *http.Request) {
+func writeTeamConflu(w http.ResponseWriter, r *http.Request) {
 	roleParam := r.URL.Query()["role"]
 	var role string
-	if roleParam == nil {
-		role = "webapp"
-	} else if len(roleParam) == 1 {
+	if len(roleParam) == 1 {
 		role = roleParam[0]
 	} else {
 		returnInvalidParamsError(w, r)
