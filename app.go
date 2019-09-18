@@ -1,14 +1,12 @@
 package main
 
 import (
+	"db"
 	"fmt"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
-	"db"
-	"routes/categoryRoutes"
-	"routes/eventDescRoutes"
-	"routes/eventNameRoutes"
-	"github.com/gorilla/mux"
+	"routes"
 )
 
 func main() {
@@ -20,10 +18,7 @@ func main() {
 
 func muxRouterInitializer() *mux.Router {
 	muxRouter := mux.NewRouter()
-	muxRouter.PathPrefix("/events/name").Handler(http.StripPrefix("/events/name", eventNameRoutes.EventHandler()))
-	muxRouter.PathPrefix("/events/desc").Handler(http.StripPrefix("/events/desc", eventDescRoutes.EventHandler()))
-	muxRouter.PathPrefix("/category").Handler(http.StripPrefix("/category", categoryRoutes.CategoryHandler()))
-	muxRouter.HandleFunc("/", MuxHandler)
+	muxRouter.PathPrefix("/api").Handler(http.StripPrefix("/api", routes.ApiMuxRouterInitializer()))
 	return muxRouter
 }
 
