@@ -13,7 +13,7 @@ func AuthRoutesHandler() *mux.Router {
 }
 
 func addRoutes(muxRouter *mux.Router) {
-	muxRouter.HandleFunc("/login", login).Methods("POST")
+	muxRouter.HandleFunc("/login/", login).Methods("POST")
 	//muxRouter.HandleFunc("/signUp", readCategory).Methods("POST")
 }
 

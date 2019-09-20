@@ -2,7 +2,6 @@ package protocol
 
 import (
 	"encoding/json"
-	"fmt"
 	"net/http"
 )
 
@@ -51,17 +50,4 @@ func writeResponse(w http.ResponseWriter, response string, statusCode int) {
 	w.WriteHeader(statusCode)
 	w.Write([]byte(response))
 	return
-}
-
-func GetSpecificTagFromBody(params string, r *http.Request) (interface{}, error) {
-	err := r.ParseForm()
-	if err != nil {
-		return nil, err
-	}
-	fmt.Println(params)
-	fmt.Printf("%s", r.FormValue(params))
-	paramKey :=r.PostFormValue(params)
-	//paramKey := r.FormValue(params)
-	fmt.Println(string(paramKey))
-	return paramKey, nil
 }
