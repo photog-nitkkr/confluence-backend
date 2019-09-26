@@ -6,7 +6,7 @@ import (
 )
 
 type OAuthResponse struct{
-	IdToken string `json:"id_token"`
+	IdToken string `json:"idToken"`
 }
 
 type TokenInfo struct {
@@ -14,7 +14,10 @@ type TokenInfo struct {
 	Sub string `json:"sub"`
 	Name string `json:"name"`
 	ProfilePic string `json:"picture"`
-	ErrorDescription string `json:"error_description"`
+	ErrorDescription string `json:"errorDescription"`
+	College string `json:"college"`
+	ContactNumber string `json:"contactNumber"`
+	Year string `json:"year"`
 }
 
 func GetIdToken(r *http.Request) (string, error) {

@@ -3,9 +3,9 @@ package authRoutes
 import (
 	"common/structs"
 	"errors"
-	"fmt"
 	"io/ioutil"
 	. "net/http"
+	"user"
 )
 
 func login(w ResponseWriter, r *Request) {
@@ -23,11 +23,28 @@ func handleLogin(r *Request) (interface{}, error) {
 		return nil, errors.New("Error is: " + tokenInfoObject.ErrorDescription)
 	}
 
-	name := tokenInfoObject.Name
-	email := tokenInfoObject.Email
-	profilePic := tokenInfoObject.ProfilePic
-	sub := tokenInfoObject.Sub
-	fmt.Println(name, email, profilePic, sub)
+	 user.HandleFirestoreUser(&tokenInfoObject)
+
+	// db
+	// sub - user
+	// null = no user
+	// create user in db {name, email, picture, sub, onBoard=false}
+	// jwt details = {as above]
+
+	// !null = user
+	// user already get
+
+	// details = { onBoard, college, phoneNo }
+
+	// create jwt with details
+
+
+
+	//encodedToken, err := JwtEncode(&tokenInfoObject)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//return encodedToken, nil
 	return nil, nil
 }
 
@@ -45,7 +62,7 @@ func getUserTokenInfo(r *Request) (*structs.TokenInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	defer resp.Body.Close()
+
 	body, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		return nil, err
@@ -54,6 +71,5 @@ func getUserTokenInfo(r *Request) (*structs.TokenInfo, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println(tokenInfo)
 	return tokenInfo, nil
 }
