@@ -1,6 +1,7 @@
 package structs
 
 import (
+	"cloud.google.com/go/firestore"
 	"encoding/json"
 	"net/http"
 )
@@ -18,6 +19,7 @@ type TokenInfo struct {
 	College string `json:"college"`
 	ContactNumber string `json:"contactNumber"`
 	Year string `json:"year"`
+	OnBoard bool `json:"onBoard"`
 }
 
 func GetIdToken(r *http.Request) (string, error) {
@@ -38,4 +40,13 @@ func GetTokenInfo(body []byte) (*TokenInfo, error) {
 		return nil, err
 	}
 	return &tokenInfo, nil
+}
+
+func ConvertToUserObject(firestoreDocument *firestore.DocumentSnapshot, user *TokenInfo) error {
+	err := firestoreDocument.DataTo(user)
+
+	if err != nil {
+		return err
+	}
+	return nil
 }

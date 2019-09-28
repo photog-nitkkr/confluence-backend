@@ -5,11 +5,31 @@ import (
 	"errors"
 	"io/ioutil"
 	. "net/http"
+	"protocol"
 	"user"
 )
 
 func login(w ResponseWriter, r *Request) {
-	handleLogin(r)
+	token, err := handleLogin(r)
+	if err != nil {
+		responseObject := protocol.Response{
+			Success: false,
+			Message: err.Error(),
+			Request: protocol.GetRequestObject(r),
+			Data:    nil,
+		}
+		protocol.WriteResponseObject(w, r, responseObject, StatusBadRequest)
+		return
+	}
+
+	responseObject := protocol.Response{
+		Success: true,
+		Message: "User Logged In",
+		Request: protocol.GetRequestObject(r),
+		Data:    token,
+	}
+	protocol.WriteResponseObject(w, r, responseObject, StatusOK)
+	return
 }
 
 func handleLogin(r *Request) (interface{}, error) {
@@ -17,35 +37,20 @@ func handleLogin(r *Request) (interface{}, error) {
 	if err != nil {
 		return nil, err
 	}
-
 	tokenInfoObject := *tokenInfo
 	if tokenInfoObject.ErrorDescription != "" {
 		return nil, errors.New("Error is: " + tokenInfoObject.ErrorDescription)
 	}
 
-	 user.HandleFirestoreUser(&tokenInfoObject)
-
-	// db
-	// sub - user
-	// null = no user
-	// create user in db {name, email, picture, sub, onBoard=false}
-	// jwt details = {as above]
-
-	// !null = user
-	// user already get
-
-	// details = { onBoard, college, phoneNo }
-
-	// create jwt with details
-
-
-
-	//encodedToken, err := JwtEncode(&tokenInfoObject)
-	//if err != nil {
-	//	return nil, err
-	//}
-	//return encodedToken, nil
-	return nil, nil
+	 user, err := user.HandleFirestoreUser(&tokenInfoObject)
+	 if err != nil {
+	 	return nil, err
+	 }
+	 encodedToken, err := JwtEncode(user)
+	if err != nil {
+		return nil, err
+	}
+	return encodedToken, nil
 }
 
 

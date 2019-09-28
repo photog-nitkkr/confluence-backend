@@ -3,21 +3,33 @@ package user
 import (
 	"common/structs"
 	"db"
-	"fmt"
 	"golang.org/x/net/context"
 )
 
-func HandleFirestoreUser(tokenInfo *structs.TokenInfo) interface{} {
+func HandleFirestoreUser(tokenInfo *structs.TokenInfo) (*structs.TokenInfo, error) {
 	firestoreClient := db.GetFirestore()
 
-	user, _ := firestoreClient.Collection("users").Doc(tokenInfo.Sub).Get(context.Background())
+	userDocument, err := firestoreClient.Collection("users").Doc(tokenInfo.Sub).Get(context.Background())
 
-	if user != nil {
-		fmt.Println("user found")
-		return nil
+	if userDocument != nil && err == nil {
+		var user structs.TokenInfo
+		structs.ConvertToUserObject(userDocument, &user)
+		return &user, nil
 	}
-	fmt.Println("user found")
-	return nil
+	tokenInfo.OnBoard = false
+	err = addUser(tokenInfo)
+	if err != nil {
+		return nil, err
+	}
+	return tokenInfo, nil
+}
+
+func addUser(tokenInfo *structs.TokenInfo) error {
+	firestoreClient := db.GetFirestore()
+
+	_, err := firestoreClient.Collection("users").Doc(tokenInfo.Sub).Set(context.Background(), tokenInfo)
+
+	return err
 }
 
 
