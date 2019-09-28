@@ -25,7 +25,12 @@ func muxRouterInitializer() *mux.Router {
 
 func startListening() {
 	muxRouter := muxRouterInitializer()
-	log.Fatal(http.ListenAndServe(":3000", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(muxRouter)))
+	err := http.ListenAndServe(":8080", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(muxRouter))
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
 }
 
 func MuxHandler(w http.ResponseWriter, r *http.Request) {
