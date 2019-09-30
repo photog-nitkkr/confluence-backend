@@ -5,8 +5,8 @@ import (
 )
 
 type Sponsor struct {
-	Name     string `json:"name"`
-	ImageURL string `json:"imageURL"`
+	Name     string `json:"name,omitempty"`
+	ImageURL string `json:"imageURL,omitempty"`
 }
 
 func ConvertToSponsorObject(firestoreDocument *firestore.DocumentSnapshot, sponsor *Sponsor) error {

@@ -5,12 +5,12 @@ import (
 )
 
 type Person struct {
-	Name       string `json:"name"`
-	ProfilePic string `json:"profilePic"`
-	FbID       string `json:"fbID"`
-	GithubID   string `json:"githubID"`
-	Email      string `json:"email"`
-	MobileNo   string `json:"mobileNo"`
+	Name       string `json:"name,omitempty"`
+	ProfilePic string `json:"profilePic,omitempty"`
+	FbID       string `json:"fbID,omitempty"`
+	GithubID   string `json:"githubID,omitempty"`
+	Email      string `json:"email,omitempty"`
+	MobileNo   string `json:"mobileNo,omitempty"`
 }
 
 func ConvertToPersonObject(firestoreDocument *firestore.DocumentSnapshot, person *Person) error {

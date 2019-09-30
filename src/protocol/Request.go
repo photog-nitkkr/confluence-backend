@@ -3,9 +3,9 @@ package protocol
 import "net/http"
 
 type Request struct {
-	Method string
-	URI string
-	Params []Params
+	Method string `json:"method,omitempty"`
+	URI string `json:"uri,omitempty"`
+	Params []Params `json:"params,omitempty"`
 }
 
 func GetRequestObject(r *http.Request) Request {

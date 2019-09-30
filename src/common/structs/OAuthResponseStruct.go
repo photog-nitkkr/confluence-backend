@@ -7,19 +7,19 @@ import (
 )
 
 type OAuthResponse struct{
-	IdToken string `json:"idToken"`
+	IdToken string `json:"idToken,omitempty"`
 }
 
 type TokenInfo struct {
-	Email string `json:"email"`
-	Sub string `json:"sub"`
-	Name string `json:"name"`
-	ProfilePic string `json:"picture"`
-	ErrorDescription string `json:"errorDescription"`
-	College string `json:"college"`
-	ContactNumber string `json:"contactNumber"`
-	Year string `json:"year"`
-	OnBoard bool `json:"onBoard"`
+	Email string `json:"email,omitempty"`
+	Sub string `json:"sub,omitempty"`
+	Name string `json:"name,omitempty"`
+	ProfilePic string `json:"picture,omitempty"`
+	ErrorDescription string `json:"errorDescription,omitempty"`
+	College string `json:"college,omitempty"`
+	ContactNumber string `json:"contactNumber,omitempty"`
+	Year string `json:"year,omitempty"`
+	OnBoard bool `json:"onBoard,omitempty"`
 }
 
 func GetIdToken(r *http.Request) (string, error) {

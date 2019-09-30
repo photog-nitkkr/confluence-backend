@@ -5,8 +5,8 @@ import (
 )
 
 type Category struct {
-	Name string `json:"name"`
-	Events []Event `json:"events"`
+	Name string `json:"name,omitempty"`
+	Events []Event `json:"events,omitempty"`
 }
 
 func ConvertToCategoryObject(firestoreDocument *firestore.DocumentSnapshot, category *Category) error {
