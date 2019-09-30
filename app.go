@@ -3,11 +3,11 @@ package main
 import (
 	"db"
 	"fmt"
+	"github.com/gorilla/handlers"
+	"github.com/gorilla/mux"
 	"log"
 	"net/http"
 	"routes"
-
-	"github.com/gorilla/mux"
 )
 
 func main() {
@@ -25,12 +25,12 @@ func muxRouterInitializer() *mux.Router {
 
 func startListening() {
 	muxRouter := muxRouterInitializer()
-
-	err := http.ListenAndServe(":8080", muxRouter)
+	err := http.ListenAndServe(":8080", handlers.CORS(handlers.AllowedHeaders([]string{"X-Requested-With", "Content-Type", "Authorization"}), handlers.AllowedMethods([]string{"GET", "POST", "PUT", "HEAD", "OPTIONS"}), handlers.AllowedOrigins([]string{"*"}))(muxRouter))
 	if err != nil {
-		listeningError := "Error in Listening: "
-		log.Fatalln(listeningError, err)
+		fmt.Println(err)
+		return
 	}
+
 }
 
 func MuxHandler(w http.ResponseWriter, r *http.Request) {

@@ -6,10 +6,10 @@ import (
 )
 
 type Response struct {
-	Success bool `json:"success"`
-	Message string `json:"message"`
-	Request Request `json:"request"`
-	Data interface{} `json:"data"`
+	Success bool `json:"success,omitempty"`
+	Message string `json:"message,omitempty"`
+	Request Request `json:"request,omitempty"`
+	Data interface{} `json:"data,omitempty"`
 }
 
 func WriteResponseObject(w http.ResponseWriter, r *http.Request, responseObject Response, statusCode int) {

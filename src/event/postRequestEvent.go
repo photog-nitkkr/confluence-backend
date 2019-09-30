@@ -19,7 +19,6 @@ func AddEventInFireStoreUtil(event structs.Event) error {
 func getEventForEventsName(event structs.Event) structs.Event {
 	return structs.Event{
 		Name:         event.Name,
-		DisplayName:  event.DisplayName,
 		Category:     event.Category,
 	}
 }

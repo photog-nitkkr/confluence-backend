@@ -3,8 +3,8 @@ package protocol
 import "net/http"
 
 type Params struct {
-	Key string
-	Value []string
+	Key string `json:"key,omitempty"`
+	Value []string `json:"value"`
 }
 
 func GetQueryParamsForGETRequest(r *http.Request) []Params {

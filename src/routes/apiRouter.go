@@ -2,12 +2,13 @@ package routes
 
 import (
 	"net/http"
+	"routes/authRoutes"
 	"routes/categoryRoutes"
 	"routes/developerRoutes"
 	"routes/eventDescRoutes"
 	"routes/eventNameRoutes"
 	"routes/teamConfluRoutes"
-	"routes/sponsorRoutes" 
+	"routes/sponsorRoutes"
 
 	"github.com/gorilla/mux"
 )
@@ -19,6 +20,7 @@ func ApiMuxRouterInitializer() *mux.Router {
 	muxRouter.PathPrefix("/category").Handler(http.StripPrefix("/category", categoryRoutes.CategoryHandler()))
 	muxRouter.PathPrefix("/developers").Handler(http.StripPrefix("/developers", developerRoutes.DeveloperHandler()))
 	muxRouter.PathPrefix("/teamConflu").Handler(http.StripPrefix("/teamConflu", teamConfluRoutes.TeamConfluHandler()))
+	muxRouter.PathPrefix("/auth").Handler(http.StripPrefix("/auth", authRoutes.AuthRoutesHandler()))
 	muxRouter.PathPrefix("/sponsors").Handler(http.StripPrefix("/sponsors", sponsorRoutes.SponsorsHandler()))
 	return muxRouter
 }

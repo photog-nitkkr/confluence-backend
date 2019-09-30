@@ -57,9 +57,6 @@ func isEventValid(event structs.Event) error {
 	} else if event.Name == "" {
 		err := errors.New("Error in adding event: Event name can not be undefined")
 		return err
-	} else if event.DisplayName == "" {
-		err := errors.New("Error in adding event: Event display name can not be undefined")
-		return err
 	}
 	return nil
 }

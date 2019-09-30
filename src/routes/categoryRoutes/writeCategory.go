@@ -54,9 +54,6 @@ func isCategoryValid(category structs.Category) error {
 	if category.Name == "" {
 		err := errors.New("Error in adding category: Category name can not be undefined")
 		return err
-	} else if category.DisplayName == "" {
-		err := errors.New("Error in adding category: Category display name can not be undefined")
-		return err
 	}
 	return nil
 }
