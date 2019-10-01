@@ -5,12 +5,13 @@ import (
 	"db"
 	"context"
 	"errors"
+	"strings"
 )
 
 func GetCategory(categoryName string) (*Category , error) {
 	firestoreClient := db.GetFirestore()
 
-	doc, err := firestoreClient.Collection("categories").Doc(categoryName).Get(context.Background())
+	doc, err := firestoreClient.Collection("categories").Doc(strings.ToLower(categoryName)).Get(context.Background())
 
 	if err != nil {
 		return nil, err
