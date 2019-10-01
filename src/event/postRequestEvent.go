@@ -2,8 +2,9 @@ package event
 
 import (
 	"common/structs"
-	. "db"
 	"context"
+	. "db"
+	"strings"
 )
 
 func AddEventInFireStoreUtil(event structs.Event) error {
@@ -26,6 +27,6 @@ func getEventForEventsName(event structs.Event) structs.Event {
 func addEventInFirestore(event structs.Event, docName string) error {
 	firestoreClient := GetFirestore()
 
-	_, err := firestoreClient.Collection("events").Doc(docName).Collection(event.Category).Doc(event.Name).Set(context.Background(), event)
+	_, err := firestoreClient.Collection("events").Doc(docName).Collection(strings.ToLower(event.Category)).Doc(strings.ToLower(event.Name)).Set(context.Background(), event)
 	return err
 }
