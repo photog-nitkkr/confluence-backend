@@ -8,5 +8,6 @@ type Event struct {
 	Venue string `json:"venue,omitempty"`
 	Coordinators []string `json:"coordinators,omitempty"`
 	Description string `json:"description,omitempty"`
+	ImageUrl string `json:"imageUrl,omitempty"`
 }
 

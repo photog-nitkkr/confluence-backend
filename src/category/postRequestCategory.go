@@ -2,6 +2,7 @@ package category
 
 import (
 	"context"
+	"strings"
 
 	"common/structs"
 	. "db"
@@ -10,6 +11,6 @@ import (
 func AddCategoryInFireStore(category structs.Category) error {
 	firestoreClient := GetFirestore()
 
-	_, err := firestoreClient.Collection("categories").Doc(category.Name).Set(context.Background(), category)
+	_, err := firestoreClient.Collection("categories").Doc(strings.ToLower(category.Name)).Set(context.Background(), category)
 	return err
 }

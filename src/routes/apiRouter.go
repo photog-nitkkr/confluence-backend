@@ -7,8 +7,9 @@ import (
 	"routes/developerRoutes"
 	"routes/eventDescRoutes"
 	"routes/eventNameRoutes"
-	"routes/teamConfluRoutes"
+	"routes/oldDb"
 	"routes/sponsorRoutes"
+	"routes/teamConfluRoutes"
 
 	"github.com/gorilla/mux"
 )
@@ -22,5 +23,6 @@ func ApiMuxRouterInitializer() *mux.Router {
 	muxRouter.PathPrefix("/teamConflu").Handler(http.StripPrefix("/teamConflu", teamConfluRoutes.TeamConfluHandler()))
 	muxRouter.PathPrefix("/auth").Handler(http.StripPrefix("/auth", authRoutes.AuthRoutesHandler()))
 	muxRouter.PathPrefix("/sponsors").Handler(http.StripPrefix("/sponsors", sponsorRoutes.SponsorsHandler()))
+	muxRouter.PathPrefix("/oldDb").Handler(http.StripPrefix("/oldDb", oldDb.OldDbHandler()))
 	return muxRouter
 }
