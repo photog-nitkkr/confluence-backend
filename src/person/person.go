@@ -2,6 +2,7 @@ package person
 
 import (
 	"context"
+	"sort"
 
 	. "common/structs"
 	"errors"
@@ -52,6 +53,9 @@ func GetAllPersonsForARole(team string, role string) (*[]Person, error) {
 		doc, err := personIterator.Next()
 
 		if err == iterator.Done {
+			sort.SliceStable(persons, func(i, j int) bool {
+				return persons[i].Priority < persons[j].Priority
+			})
 			return &persons, nil
 		}
 
