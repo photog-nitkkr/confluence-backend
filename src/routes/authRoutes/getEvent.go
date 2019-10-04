@@ -1,8 +1,10 @@
 package authRoutes
 
 import (
+	"common/structs"
 	. "net/http"
 	"protocol"
+	getEvent "user"
 )
 
 func getRegisteredEvents(w ResponseWriter, r *Request) {
@@ -28,6 +30,14 @@ func getRegisteredEvents(w ResponseWriter, r *Request) {
 	return
 }
 
-func getRegisteredEventsUtil(r *Request) (interface{}, error) {
-	return nil, nil
+func getRegisteredEventsUtil(r *Request) ([]structs.Category, error) {
+	user, err := isAuthenticated(r)
+	if err != nil {
+		return nil, err
+	}
+	events, err := getEvent.GetUserEvents(user.Sub)
+	if err != nil {
+		return nil, err
+	}
+	return *events, nil
 }

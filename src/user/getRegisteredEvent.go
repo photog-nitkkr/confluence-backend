@@ -4,7 +4,6 @@ import (
 	. "common/structs"
 	"context"
 	"db"
-
 	"google.golang.org/api/iterator"
 )
 
@@ -21,12 +20,13 @@ func checkIfRegistered(category string, event string, sub string) (bool, error) 
 	return true, nil
 }
 
-func getUserEvents(sub string) (*[]Category, error) {
+func GetUserEvents(sub string) (*[]Category, error) {
 	var categories []Category
 
 	firestoreClient := db.GetFirestore()
 
 	collectionIter := firestoreClient.Collection("userEvents").Doc(sub).Collections(context.Background())
+
 	for {
 		collRef, err := collectionIter.Next()
 		if err == iterator.Done {
@@ -41,28 +41,6 @@ func getUserEvents(sub string) (*[]Category, error) {
 			return nil, err
 		}
 		categories = append(categories, *category)
-
-		// var events []Event
-		// eventIterator := fireStoreClient.Collection("userEvents").Doc(sub).Collection(collRef.ID).Documents(context.Background())
-
-		// for {
-		// 	doc, err := eventIterator.Next()
-
-		// 	if err == iterator.Done {
-		// 		return &events, nil
-		// 	}
-		// 	if err != nil {
-		// 		return nil, err
-		// 	}
-
-		// 	var event Event
-		// 	errInConversion := ConvertToEventObject(doc, &event)
-
-		// 	if errInConversion != nil {
-		// 		return nil, errInConversion
-		// 	}
-		// 	events = append(events, event)
-		// }
 	}
 
 }
@@ -101,8 +79,7 @@ func GetAllEventsForCategory(categoryName string, sub string) (*[]Event, error) 
 		if err != nil {
 			return nil, err
 		}
-
-		event := Event{Name: doc.Data()}
+		event := Event{Name: doc.Ref.ID}
 		events = append(events, event)
 	}
 

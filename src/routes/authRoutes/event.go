@@ -2,7 +2,6 @@ package authRoutes
 
 import (
 	"errors"
-	"fmt"
 	. "net/http"
 	"protocol"
 	. "user"
@@ -41,9 +40,7 @@ func eventRegisterUtil(r *Request) error {
 	if err != nil {
 		return err
 	}
-	fmt.Println(category)
-	fmt.Println(event)
-	fmt.Println(user.Sub)
+
 	err = AddUserEvent(category, event, user.Sub, *user)
 	return err
 }
