@@ -5,6 +5,7 @@ import (
 	"fmt"
 	. "net/http"
 	"protocol"
+	. "user"
 )
 
 func eventRegister(w ResponseWriter, r *Request) {
@@ -44,7 +45,8 @@ func eventRegisterUtil(r *Request) error {
 	fmt.Println(category)
 	fmt.Println(event)
 	fmt.Println(user.Sub)
-	return nil
+	err = AddUserEvent(category, event, user.Sub, *user)
+	return err
 }
 
 func parseEventCategoryAndName(r *Request) (error, string, string) {

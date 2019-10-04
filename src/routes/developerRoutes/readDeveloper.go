@@ -2,10 +2,8 @@ package developerRoutes
 
 import (
 	. "net/http"
-	"protocol"
-
-	// . "developer"
 	. "person"
+	"protocol"
 )
 
 func readDeveloper(w ResponseWriter, r *Request) {
