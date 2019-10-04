@@ -32,7 +32,7 @@ func JwtEncode(tokenInfo *structs.TokenInfo) (string, error) {
 	return tokenString, nil
 }
 
-func IsAuthenticated(tokenString string) (*structs.TokenInfo, error) {
+func JWTVerify(tokenString string) (*structs.TokenInfo, error) {
 	token, err := jwt.ParseWithClaims(tokenString, &MyCustomToken{}, func(token *jwt.Token) (interface{}, error) {
 		return []byte(secret), nil
 	})

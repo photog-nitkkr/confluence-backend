@@ -78,3 +78,12 @@ func getUserTokenInfo(r *Request) (*structs.TokenInfo, error) {
 	}
 	return tokenInfo, nil
 }
+
+func isAuthenticated(r *Request) (*structs.TokenInfo, error) {
+	reqToken := r.Header.Get("Authorization")
+	user, err := JWTVerify(reqToken)
+	if err != nil {
+		return nil, err
+	}
+	return user, nil
+}
