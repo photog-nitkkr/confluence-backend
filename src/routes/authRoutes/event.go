@@ -34,7 +34,6 @@ func eventRegister(w ResponseWriter, r *Request) {
 func eventRegisterUtil(r *Request) error {
 	user, err := isAuthenticated(r)
 	if err != nil {
-		fmt.Println(err)
 		return err
 	}
 

@@ -17,14 +17,14 @@ func HandleFirestoreUser(tokenInfo *structs.TokenInfo) (*structs.TokenInfo, erro
 		return &user, nil
 	}
 	tokenInfo.OnBoard = false
-	err = addUser(tokenInfo)
+	err = AddUser(tokenInfo)
 	if err != nil {
 		return nil, err
 	}
 	return tokenInfo, nil
 }
 
-func addUser(tokenInfo *structs.TokenInfo) error {
+func AddUser(tokenInfo *structs.TokenInfo) error {
 	firestoreClient := db.GetFirestore()
 
 	_, err := firestoreClient.Collection("users").Doc(tokenInfo.Sub).Set(context.Background(), tokenInfo)
