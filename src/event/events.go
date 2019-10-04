@@ -5,6 +5,7 @@ import (
 	. "common/structs"
 	"context"
 	. "db"
+	"strings"
 
 	"google.golang.org/api/iterator"
 )
@@ -41,7 +42,7 @@ func GetEventsForCategory(categoryName string, docName string) (*Category, error
 func GetAllEventsForCategory(categoryName string, docName string) (*[]Event, error) {
 	firestoreClient := GetFirestore()
 
-	eventIterator := firestoreClient.Collection("events").Doc(docName).Collection(categoryName).Documents(context.Background())
+	eventIterator := firestoreClient.Collection("events").Doc(docName).Collection(strings.ToLower(categoryName)).Documents(context.Background())
 	if eventIterator == nil {
 		return nil, nil
 	}

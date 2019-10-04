@@ -7,6 +7,7 @@ src/github.com
 src/go.opencensus.io
 src/golang.org
 src/google.golang.org
+pkg/
 
 #ignore user related info in files
 confluence-backend-f4428e8989c7.json
