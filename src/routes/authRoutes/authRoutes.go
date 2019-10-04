@@ -14,7 +14,8 @@ func AuthRoutesHandler() *mux.Router {
 
 func addRoutes(muxRouter *mux.Router) {
 	muxRouter.HandleFunc("/login/", login).Methods("POST")
-	muxRouter.HandleFunc("/registerEvent/", eventRegister).Methods("PUT")
+	muxRouter.HandleFunc("/event/", eventRegister).Methods("PUT")
 	muxRouter.HandleFunc("/onBoard/", userSignUp).Methods("PUT")
+	muxRouter.HandleFunc("/event/", getRegisteredEvents).Methods("GET")
 }
 
