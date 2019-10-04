@@ -54,6 +54,9 @@ func GetAllPersonsForARole(team string, role string) (*[]Person, error) {
 
 		if err == iterator.Done {
 			sort.SliceStable(persons, func(i, j int) bool {
+				if persons[i].Year != persons[j].Year {
+					return persons[i].Year > persons[i].Year
+				}
 				return persons[i].Priority < persons[j].Priority
 			})
 			return &persons, nil

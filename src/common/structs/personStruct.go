@@ -12,6 +12,7 @@ type Person struct {
 	Email      string `json:"email,omitempty"`
 	MobileNo   string `json:"mobileNo,omitempty"`
 	Priority   int    `json:"priority,omitempty"`
+	Year 	   string `json:"year,omitempty"`
 }
 
 func ConvertToPersonObject(firestoreDocument *firestore.DocumentSnapshot, person *Person) error {
