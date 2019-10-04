@@ -32,23 +32,23 @@ func login(w ResponseWriter, r *Request) {
 	return
 }
 
-func handleLogin(r *Request) (interface{}, error) {
+func handleLogin(r *Request) (string, error) {
 	tokenInfo, err := getUserTokenInfo(r)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	tokenInfoObject := *tokenInfo
 	if tokenInfoObject.ErrorDescription != "" {
-		return nil, errors.New("Error is: " + tokenInfoObject.ErrorDescription)
+		return "", errors.New("Error is: " + tokenInfoObject.ErrorDescription)
 	}
 
 	 user, err := user.HandleFirestoreUser(&tokenInfoObject)
 	 if err != nil {
-	 	return nil, err
+	 	return "", err
 	 }
 	 encodedToken, err := JwtEncode(user)
 	if err != nil {
-		return nil, err
+		return "", err
 	}
 	return encodedToken, nil
 }
