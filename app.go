@@ -20,6 +20,7 @@ func main() {
 func muxRouterInitializer() *mux.Router {
 	muxRouter := mux.NewRouter()
 	muxRouter.PathPrefix("/api").Handler(http.StripPrefix("/api", routes.ApiMuxRouterInitializer()))
+	muxRouter.HandleFunc("/", MuxHandler)
 	return muxRouter
 }
 
