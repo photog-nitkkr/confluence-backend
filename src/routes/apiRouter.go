@@ -21,7 +21,7 @@ func ApiMuxRouterInitializer() *mux.Router {
 	muxRouter.PathPrefix("/category").Handler(http.StripPrefix("/category", categoryRoutes.CategoryHandler()))
 	muxRouter.PathPrefix("/developers").Handler(http.StripPrefix("/developers", developerRoutes.DeveloperHandler()))
 	muxRouter.PathPrefix("/teamConflu").Handler(http.StripPrefix("/teamConflu", teamConfluRoutes.TeamConfluHandler()))
-	muxRouter.PathPrefix("/auth").Handler(http.StripPrefix("/auth", authRoutes.AuthRoutesHandler()))
+	muxRouter.PathPrefix("/user").Handler(http.StripPrefix("/user", authRoutes.AuthRoutesHandler()))
 	muxRouter.PathPrefix("/sponsors").Handler(http.StripPrefix("/sponsors", sponsorRoutes.SponsorsHandler()))
 	muxRouter.PathPrefix("/oldDb").Handler(http.StripPrefix("/oldDb", oldDb.OldDbHandler()))
 	return muxRouter
