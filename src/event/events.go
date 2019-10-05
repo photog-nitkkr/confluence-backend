@@ -5,6 +5,7 @@ import (
 	. "common/structs"
 	"context"
 	. "db"
+	"errors"
 	"strings"
 
 	"google.golang.org/api/iterator"
@@ -103,4 +104,20 @@ func GetAllEventsForAllCategory(docName string) (*[]Category, error) {
 		categories = append(categories, *category)
 	}
 	return &categories, nil
+}
+
+func GetSpecificEvent(eventName string, docName string) (interface{}, error) {
+	eventName = strings.ToLower(eventName)
+	allEvents, err := GetAllEventsForAllCategory(docName)
+	if err != nil {
+		return nil, err
+	}
+	for _, category := range *allEvents {
+		for _, event := range category.Events {
+			if strings.ToLower(event.Name) == eventName {
+				return event, nil
+			}
+		}
+	}
+	return nil, errors.New("Event Not Found")
 }

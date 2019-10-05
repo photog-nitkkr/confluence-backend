@@ -2,6 +2,7 @@ package person
 
 import (
 	"context"
+	"fmt"
 	"sort"
 
 	. "common/structs"
@@ -59,6 +60,10 @@ func GetAllPersonsForARole(team string, role string) (*[]Person, error) {
 				}
 				return persons[i].Priority < persons[j].Priority
 			})
+			for i, _ := range persons {
+				persons[i].Priority = 0
+			}
+			fmt.Println(persons)
 			return &persons, nil
 		}
 

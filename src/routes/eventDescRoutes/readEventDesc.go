@@ -2,8 +2,8 @@ package eventDescRoutes
 
 import (
 	"event"
-	"protocol"
 	. "net/http"
+	"protocol"
 )
 
 func readEventDesc(w ResponseWriter, r *Request) {
@@ -19,10 +19,36 @@ func readEventDesc(w ResponseWriter, r *Request) {
 	} else if category != nil && len(category) == 1 {
 		returnEvent(w, r, category[0], event)
 		return
+	} else if category == nil && event != nil && len(event) == 1 {
+		returnSpecificEvent(w, r, event[0])
 	} else {
 		returnInvalidParamsError(w, r)
 		return
 	}
+}
+
+func returnSpecificEvent(w ResponseWriter, r *Request, eventName string) {
+	event, err := event.GetSpecificEvent(eventName, "eventDesc")
+
+	if err != nil {
+		responseObject := protocol.Response{
+			Success: false,
+			Message: err.Error(),
+			Request: protocol.GetRequestObject(r),
+			Data:    nil,
+		}
+		protocol.WriteResponseObject(w, r, responseObject, StatusInternalServerError)
+		return
+	}
+
+	responseObject := protocol.Response{
+		Success: true,
+		Message: "Giving required Event",
+		Request: protocol.GetRequestObject(r),
+		Data:    event,
+	}
+	protocol.WriteResponseObject(w, r, responseObject, StatusOK)
+	return
 }
 
 func returnAllEvents(w ResponseWriter, r *Request) {
