@@ -2,6 +2,7 @@ package authRoutes
 
 import (
 	"common/structs"
+	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )
@@ -18,8 +19,12 @@ func fromTokenInfoToMyCustomToken(token structs.TokenInfo) MyCustomToken {
 	myCustomToken.Sub = token.Sub
 	myCustomToken.Year = token.Year
 
+	expirationTime := time.Now().Add(2 * time.Hour)
+	issueTime := time.Now()
+
 	standardClaims := jwt.StandardClaims{
-		ExpiresAt: (time.Now().UnixNano() + int64((time.Duration(2*time.Hour))/time.Millisecond) ) / int64(time.Millisecond),
+		IssuedAt: issueTime.Unix(),
+		ExpiresAt: expirationTime.Unix(),
 		Issuer: "Mudit Jain",
 	}
 	myCustomToken.StandardClaims = standardClaims
