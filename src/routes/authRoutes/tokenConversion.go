@@ -2,7 +2,6 @@ package authRoutes
 
 import (
 	"common/structs"
-	"fmt"
 	"github.com/dgrijalva/jwt-go"
 	"time"
 )
