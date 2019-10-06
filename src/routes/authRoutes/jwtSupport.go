@@ -15,7 +15,7 @@ type MyCustomToken struct {
 	College string `json:"college,omitempty"`
 	ContactNumber string `json:"contactNumber,omitempty"`
 	Year string `json:"year,omitempty"`
-	OnBoard bool `json:"onBoard,omitempty"`
+	OnBoard bool `json:"onBoard"`
 	jwt.StandardClaims
 }
 
