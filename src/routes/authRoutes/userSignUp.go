@@ -24,7 +24,7 @@ func userSignUp(w ResponseWriter, r *Request) {
 
 	responseObject := protocol.Response{
 		Success: true,
-		Message: "Registered Event Successfully",
+		Message: "OnBoarded User Successfully",
 		Request: protocol.GetRequestObject(r),
 		Data:    nil,
 	}
