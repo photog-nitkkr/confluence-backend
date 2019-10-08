@@ -88,6 +88,16 @@ func GetAllSubTeams(team string) (*[]Team, error) {
 	for {
 		collRef, err := collectionIterator.Next()
 		if err == iterator.Done {
+			for i, _ := range teams {
+				if teams[i].Name == "photography" {
+					teams[i].Priority = 5
+				} else if teams[i].Name == "hiking and trekking club" {
+					teams[i].Priority = 4
+				}
+			}
+			sort.Slice(teams, func(i, j int) bool {
+				return teams[i].Priority > teams[j].Priority
+			})
 			return &teams, nil
 		}
 		if err != nil {

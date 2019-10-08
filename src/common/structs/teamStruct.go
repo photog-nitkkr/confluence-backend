@@ -7,6 +7,7 @@ import (
 type Team struct {
 	Name    string   `json:"name,omitempty"`
 	Members []Person `json:"members,omitempty"`
+	Priority int `json:"priority,int"`
 }
 
 func ConvertToTeamObject(firestoreDocument *firestore.DocumentSnapshot, team *Team) error {
