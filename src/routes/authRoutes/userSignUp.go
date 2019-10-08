@@ -10,7 +10,18 @@ import (
 )
 
 func userSignUp(w ResponseWriter, r *Request) {
-	err := userSignUpUtil(r)
+	user, err := userSignUpUtil(r)
+	if err != nil {
+		responseObject := protocol.Response{
+			Success: false,
+			Message: err.Error(),
+			Request: protocol.GetRequestObject(r),
+			Data:    nil,
+		}
+		protocol.WriteResponseObject(w, r, responseObject, StatusBadRequest)
+		return
+	}
+	token, err := JwtEncode(user)
 	if err != nil {
 		responseObject := protocol.Response{
 			Success: false,
@@ -26,38 +37,38 @@ func userSignUp(w ResponseWriter, r *Request) {
 		Success: true,
 		Message: "OnBoarded User Successfully",
 		Request: protocol.GetRequestObject(r),
-		Data:    nil,
+		Data:    token,
 	}
 	protocol.WriteResponseObject(w, r, responseObject, StatusOK)
 	return
 }
 
-func userSignUpUtil(r *Request) error {
+func userSignUpUtil(r *Request) (*structs.TokenInfo, error) {
 	user, err := isAuthenticated(r)
 	if err != nil {
-		return err
+		return nil, nil
 	}
 
-	err = parseUser(r, user)
+	user, err = parseUser(r, user)
 	if err != nil {
-		return err
+		return nil, nil
 	}
 
 	err = addUser.AddUser(user)
-	return err
+	return user, err
 }
 
-func parseUser(r *Request, user *structs.TokenInfo) (error) {
+func parseUser(r *Request, user *structs.TokenInfo) (*structs.TokenInfo, error) {
 	body, err := ioutil.ReadAll(r.Body)
 	if err != nil {
-		return err
+		return nil, nil
 	}
 	userInfo, err := getUserInfo(body)
 	if err != nil {
-		return err
+		return nil, nil
 	}
 	updateUserInfo(user, userInfo)
-	return nil
+	return user, nil
 }
 
 func getUserInfo(body []byte) (*structs.TokenInfo, error) {
